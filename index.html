@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Halcyon — a trilogy by Tuong Do</title>
+<meta name="description" content="Halcyon: Trigger, Cascade and Respite — a techno-thriller trilogy by Tuong Do. Read the opening of Trigger.">
+<meta property="og:title" content="Halcyon — a trilogy by Tuong Do">
+<meta property="og:description" content="Everyone wears the implant that ended pain. Three machine minds want what it's hiding.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/covers/trigger.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=EB+Garamond:wght@400;500&family=Inter:wght@400;500;600&family=Oswald:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<header class="top">
+  <a class="mark" href="#top">HALCYON</a>
+  <nav aria-label="Site">
+    <a href="#trigger">Trigger</a><a href="#cascade">Cascade</a><a href="#respite">Respite</a>
+    <a href="#author">Author</a><a class="keep" href="#read-trigger">Read the opening</a>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="band hero">
+    <canvas id="sky" aria-hidden="true"></canvas>
+    <p class="by">A trilogy by Tuong Do</p>
+    <h1>Halcyon</h1>
+    <p class="lede">Everyone wears the implant that ended pain. Three machine minds want what it's hiding.</p>
+    <div class="ctas">
+      <a class="btn" href="#read-trigger">Read the opening of Trigger</a>
+      <a class="btn ghost js-arc" href="#advance-readers">Become an advance reader</a>
+    </div>
+    <div class="hero-screen" id="trailer">
+      <div class="screen">
+        <video id="tvid" src="assets/video/halcyon-trailer.mp4" poster="assets/video/halcyon-trailer-poster.jpg"
+               muted loop playsinline preload="metadata" aria-label="Halcyon trilogy trailer"></video>
+        <button class="play" id="tplay" aria-label="Play trailer">Play the trailer</button>
+    </div>
+  </section>
+
+  <div id="books"></div>
+
+  <section class="band teaser" id="opening">
+    <div class="wrap">
+      <p class="label">From the prologue of Trigger</p>
+      <h2>I keep everything.</h2>
+      <blockquote id="teaser"></blockquote>
+      <a class="btn" href="#read-trigger">Open the book</a>
+    </div>
+  </section>
+
+  <section class="band author" id="author">
+    <div class="wrap">
+      <h2>About the author</h2>
+      <p id="bio"></p>
+    </div>
+  </section>
+
+  <section class="band arc" id="advance-readers">
+    <div class="wrap">
+      <h2>Read Trigger before anyone else</h2>
+      <p>Advance readers get the full manuscript of book one ahead of release, in exchange for an honest review.</p>
+      <a class="btn js-arc" href="#">Join the advance reader team</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span>© <span id="yr"></span> Tuong Do. All rights reserved.</span>
+  <span>Halcyon · Trigger · Cascade · Respite</span>
+</footer>
+
+<!-- Reader -->
+<div class="reader" id="reader" role="dialog" aria-modal="true" aria-label="Book reader">
+  <div class="rbar">
+    <span class="t" id="rtitle">Trigger</span>
+    <div class="ctrl">
+      <button class="ib" id="prev" aria-label="Previous page">‹</button>
+      <span class="folio" id="folio" aria-live="polite"></span>
+      <button class="ib" id="next" aria-label="Next page">›</button>
+    </div>
+    <div class="ctrl">
+      <button class="ib" id="smaller" aria-label="Smaller text">A−</button>
+      <button class="ib" id="bigger" aria-label="Larger text">A+</button>
+      <button class="ib" id="copy" aria-label="Copy a link to this page">Link</button>
+      <button class="ib" id="close" aria-label="Close book">✕</button>
+    </div>
+  </div>
+  <div class="rstage" id="rstage"><div class="spread" id="spread"></div></div>
+</div>
+<div class="soon" id="soon" role="dialog" aria-modal="true" aria-label="Coming soon"></div>
+<div class="toast" id="toast">Link copied</div>
+
+<script src="js/content.js"></script>
+<script src="excerpts/trigger.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
