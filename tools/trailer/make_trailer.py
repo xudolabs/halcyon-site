@@ -122,23 +122,22 @@ def book_scene(cover_file, label, hook, kicker):
 
 # ---------- scene 5: the trilogy ----------
 covers = [Image.open(COV + f).convert("RGB") for f in ("trigger.jpg", "cascade.jpg", "respite.jpg")]
-TITLE = text_layer("HALCYON", ImageFont.truetype(SERIF, 92), GOLD, spacing=22, align="center")
-BY = text_layer("A trilogy by Tuong Do", ImageFont.truetype(SERIF_I, 36), INK, align="center")
+_logo = Image.open("/home/claude/halcyon-site/assets/logo/halcyon-logo.png").convert("RGBA")
+_lw = 330; LOGO = _logo.resize((_lw, int(_logo.height * _lw / _logo.width)), Image.LANCZOS)
 CTA = text_layer("READ THE OPENING OF TRIGGER", ImageFont.truetype(SANS, 18), GOLD, spacing=4, align="center")
 def s5(t, dur):
     im = Image.new("RGBA", (W, H), (12, 10, 8, 255))
     glow = Image.new("RGBA", (W, H), (0, 0, 0, 0)); ImageDraw.Draw(glow).ellipse((W * .15, H * .45, W * .85, H * 1.15), fill=(212, 160, 70, 60))
     im.alpha_composite(glow.filter(ImageFilter.GaussianBlur(90))); draw_dust(im, t + 9, .7)
-    ch = 330; cw = int(ch * 2 / 3); gap = 46; total = 3 * cw + 2 * gap; x0 = (W - total) // 2; y = 250
+    ch = 300; cw = int(ch * 2 / 3); gap = 46; total = 3 * cw + 2 * gap; x0 = (W - total) // 2; y = 318
     d = ImageDraw.Draw(im); d.rectangle((x0 - 80, y + ch + 2, x0 + total + 80, y + ch + 6), fill=(212, 173, 87, int(160 * ramp(t, .2, 1))))
     for i, c in enumerate(covers):
         a = ramp(t, .3 + i * .35, 1.2 + i * .35); dy = (1 - a) * 40
         sh = Image.new("RGBA", (cw + 60, 40), (0, 0, 0, 0)); ImageDraw.Draw(sh).ellipse((0, 0, cw + 60, 40), fill=(0, 0, 0, 170))
         paste_fade(im, sh.filter(ImageFilter.GaussianBlur(10)), (x0 + i * (cw + gap) - 30, y + ch - 14), a)
         paste_fade(im, c.resize((cw, ch), Image.LANCZOS).convert("RGBA"), (x0 + i * (cw + gap), y), a, dy=dy)
-    paste_fade(im, TITLE, ((W - TITLE.width) / 2, 70), ramp(t, 1.3, 2.3))
-    paste_fade(im, BY, ((W - BY.width) / 2, 176), ramp(t, 1.9, 2.8))
-    paste_fade(im, CTA, ((W - CTA.width) / 2, 640), ramp(t, 3.0, 3.8))
+    paste_fade(im, LOGO, ((W - LOGO.width) / 2, 30), ramp(t, 1.3, 2.4), dy=(1 - ramp(t, 1.3, 2.6)) * 10)
+    paste_fade(im, CTA, ((W - CTA.width) / 2, 668), ramp(t, 3.0, 3.8))
     im.alpha_composite(VIG); return im
 
 SCENES = [
@@ -156,7 +155,9 @@ if __name__ == "__main__":
             for t in (dur * .62,):
                 fn(t, dur).convert("RGB").save(f"{OUT}/still_{name}.jpg", quality=90)
         print("stills done"); sys.exit()
-    for name, dur, fn in SCENES: encode(name, dur, fn)
+    only = sys.argv[2:] if which == "scenes" else None
+    for name, dur, fn in SCENES:
+        if only is None or name in only: encode(name, dur, fn)
     with open(f"{OUT}/list.txt", "w") as f:
         for name, _, _ in SCENES: f.write(f"file '{name}.mp4'\n")
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", f"{OUT}/list.txt",
